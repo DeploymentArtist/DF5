@@ -1,0 +1,5 @@
+<DownloadSettings>
+ <DownLoadFolder>http://deploymentfundamentals.com/DF5</DownLoadFolder>
+ <DownloadFile>download.xml</DownloadFile>
+ <RootFolder>C:\Setup</RootFolder>
+</DownloadSettings>

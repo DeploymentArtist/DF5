@@ -1,0 +1,9 @@
+﻿SamAccountName,Name,GivenName,SurName,Description,Title,Department,MemberOfGroup,OU,Password
+frank.Sheep,Frank Sheep,Frank,Sheep,The Boss,CEO,Management,Domain ViaMonstra Management,"OU=Users,OU=ViaMonstra",P@ssw0rd
+sue.something,Sue Something,Sue,Something,The book keeper,CFO,Finance,Domain ViaMonstra Finance,"OU=Users,OU=ViaMonstra",P@ssw0rd
+johan.arwidmark,Johan Arwidmark,Johan,Arwidmark,Technical Architect,Tech,IT,Domain ViaMonstra IT,"OU=Users,OU=ViaMonstra",P@ssw0rd
+mikael.nystrom,Mikael Nystrom,Mikael,Nystrom,Senior Execute Consultant,Tech,IT,Domain ViaMonstra IT,"OU=Users,OU=ViaMonstra",P@ssw0rd
+kent.agerlund,Kent Agerlund,Kent,Agerlund,Technical Architect,Tech,IT,Domain ViaMonstra IT,"OU=Users,OU=ViaMonstra",P@ssw0rd
+admminy,ADM Mikael Nystrom,Mikael,Nystrom,,ADM,IT,Domain Admins,"OU=Admin Accounts,OU=Internal IT,OU=ViaMonstra",P@ssw0rd
+admjoar,ADM Johan Arwidmark,Johan,Arwidmark,,ADM,IT,Domain Admins,"OU=Admin Accounts,OU=Internal IT,OU=ViaMonstra",P@ssw0rd
+admkeag,ADM Kent Agerlund,Kent,Agerlund,,ADM,IT,Domain Admins,"OU=Admin Accounts,OU=Internal IT,OU=ViaMonstra",P@ssw0rd

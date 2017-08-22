@@ -1,0 +1,113 @@
+<job id="Install-HPSUM">
+<script language="VBScript" src="..\..\scripts\ZTIUtility.vbs"/>
+<script language="VBScript"> 
+ 
+'//----------------------------------------------------------------------------
+'// Version: 1.2 - February 27, 2014 - Mikael Nystrom and Johan Arwidmark
+'//
+'// This script is provided "AS IS" with no warranties, confers no rights and 
+'// is not supported by the authors or Deployment Artist. 
+'//
+'//----------------------------------------------------------------------------
+ 
+'//----------------------------------------------------------------------------
+'// Global constant and variable declarations
+'//---------------------------------------------------------------------------- 
+ 
+Option Explicit 
+Dim iRetVal 
+ 
+'//----------------------------------------------------------------------------
+'// End declarations
+'//---------------------------------------------------------------------------- 
+ 
+'//----------------------------------------------------------------------------
+'// Main routine
+'//---------------------------------------------------------------------------- 
+ 
+On Error Resume Next
+iRetVal = ZTIProcess
+ProcessResults iRetVal
+On Error Goto 0 
+ 
+'//---------------------------------------------------------------------------
+'//
+'// Function: ZTIProcess()
+'//
+'// Input: None
+'// 
+'// Return: Success - 0
+'// Failure - non-zero
+'//
+'// Purpose: Perform main ZTI processing
+'// 
+'//---------------------------------------------------------------------------
+ 
+Function ZTIProcess() 
+ 
+    Dim sSetupFile
+    Dim sArguments
+    Dim sSourceFolder
+    Dim sTargetFolder
+     
+    sSetupFile = "C:\Setup\HPSUM\x64\hpsum_bin_x64.exe"
+    sArguments = "/s /use_location C:\Setup\HPSUM"
+     
+    oLogging.CreateEntry oUtility.ScriptName & ": Starting installation", LogTypeInfo
+ 
+    sSourceFolder = oUtility.ScriptDir & "\Source"
+    sTargetFolder = "C:\Setup\HPSUM"
+ 
+    If oFSO.FolderExists(sTargetFolder) then
+        oLogging.CreateEntry oUtility.ScriptName & ": " & sTargetFolder & " already exists, aborting...", LogTypeError
+        ZTIProcess = Failure
+        Exit Function
+    End if
+ 
+ 
+    oFSO.CreateFolder sTargetFolder 
+        oUtility.VerifyPathExists sTargetFolder
+ 
+    oLogging.CreateEntry "Copying " & sSourceFolder & " folder to the local machine", LogTypeInfo
+ 
+    ' Optional progess logging to the task sequence progress bar
+    oLogging.ReportProgress "Copying " & sSourceFolder & " folder to the local machine", 20
+ 
+    oFSO.CopyFolder sSourceFolder, sTargetFolder, true
+         
+    If not oFSO.FileExists(sSetupFile) then
+        oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile & " was not found, unable to install", LogTypeError
+        ZTIProcess = Failure
+        Exit Function
+    End if
+ 
+    oLogging.CreateEntry oUtility.ScriptName & ": Arguments is set to " & sArguments, LogTypeInfo        
+ 
+    ' Optional progess logging to the task sequence progress bar
+    oLogging.ReportProgress "Installing HP SUM", 60
+ 
+    iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile & """ " & sArguments)
+     
+    if (iRetVal = 0) then 
+        ZTIProcess = Success
+    ElseIf (iRetVal = 1) then 
+        ZTIProcess = Success
+    ElseIf (iRetVal = 2) then 
+        ZTIProcess = Success 
+    ElseIf (iRetVal = 3) then 
+        ZTIProcess = Success 
+    ElseIf (iRetVal = 4) then 
+        ZTIProcess = Success 
+    Elseif (iRetVal = 5) then 
+        ZTIProcess = Success 
+    Elseif (iRetVal = 3010) then 
+        ZTIProcess = Success 
+    Else
+        ZTIProcess = Failure
+    End If
+    oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
+    oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
+ 
+End Function
+</script>
+</job>
